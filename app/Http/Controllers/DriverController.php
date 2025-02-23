@@ -18,6 +18,7 @@ class DriverController extends Controller
 
         return view('driver', [
             'user' => $request->user(),
+            'title' => $title,
             'driverList' => $driverList,
             'vehicles' => $vehicles,
         ]);

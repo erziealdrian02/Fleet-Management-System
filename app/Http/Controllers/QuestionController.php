@@ -14,7 +14,7 @@ class QuestionController extends Controller
 {
     public function index(Request $request): View
     {
-        $title = "Trips";
+        $title = "Question";
         
         $driverList = Driver::get();
         $vehicles = Vehicle::all();

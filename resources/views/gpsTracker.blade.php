@@ -2,7 +2,7 @@
 <x-app-layout>
     <x-slot name="header">
         <h2 class="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">
-            {{ __('GPS Tracker') }}
+            {{ $title }}
         </h2>
     </x-slot>
 
@@ -10,13 +10,13 @@
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <!-- Breadcrumb -->
             <div class="flex items-center space-x-2 text-gray-500 dark:text-gray-400 mb-4">
-                <span>GPS Tracking</span>
+                <span>{{ $title }}</span>
                 <span>›</span>
                 <span>List</span>
             </div>
 
             <!-- Title -->
-            <h1 class="text-3xl font-semibold text-gray-900 dark:text-white mb-8">GPS Tracking</h1>
+            <h1 class="text-3xl font-semibold text-gray-900 dark:text-white mb-8">{{ $title }}</h1>
 
             <!-- Main Content -->
             <div class="bg-white dark:bg-gray-800 rounded-lg shadow">
