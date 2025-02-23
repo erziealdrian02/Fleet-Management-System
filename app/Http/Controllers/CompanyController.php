@@ -11,10 +11,13 @@ class CompanyController extends Controller
 {
     public function index(Request $request): View
     {
+        $title = "Company";
+
         $companyList = Company::get();
 
         return view('company', [
             'user' => $request->user(),
+            'title' => $title,
             'companyList' => $companyList,
         ]);
     }
@@ -22,6 +25,7 @@ class CompanyController extends Controller
     public function formAdd(Request $request): View
     {
         $gpsList = Company::get();
+        $title = "Create Company";
 
         // Ambil IP user yang sedang online
         $ip_user = $request->ip(); // atau bisa juga pakai request()->ip()
@@ -30,6 +34,7 @@ class CompanyController extends Controller
         $location = Cache::get("user_location_{$ip_user}"); // Default Jakarta
 
         return view('formCompany.addForm-Company', [
+            'gpsList' => $title,
             'user' => $request->user(),
             'gpsList' => $gpsList,
             'latitude' => $location['lat'],
@@ -53,6 +58,8 @@ class CompanyController extends Controller
 
     public function formEdit(Request $request, $id): View
     {
+        $title = "Edit Company";
+
         $idGPS = Company::findOrFail($id);
         $companyList = Company::where('id', $id)->first();
 
@@ -64,6 +71,7 @@ class CompanyController extends Controller
 
         return view('formCompany.editForm-Company', [
             'user' => $request->user(),
+            'title' => $title,
             'companyList' => $companyList,
             'latitude' => $location['lat'],
             'longitude' => $location['lon'],

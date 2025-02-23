@@ -1,7 +1,7 @@
 <x-app-layout>
     <x-slot name="header">
         <h2 class="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">
-            {{ __('Driver') }}
+            {{ __('Question') }}
         </h2>
     </x-slot>
 
@@ -9,13 +9,13 @@
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <!-- Breadcrumb -->
             <div class="flex items-center space-x-2 text-gray-500 dark:text-gray-400 mb-4">
-                <span>Driver</span>
+                <span>Question</span>
                 <span>›</span>
                 <span>List</span>
             </div>
 
             <!-- Title -->
-            <h1 class="text-3xl font-semibold text-gray-900 dark:text-white mb-8">Driver</h1>
+            <h1 class="text-3xl font-semibold text-gray-900 dark:text-white mb-8">Question</h1>
 
             <!-- Main Content -->
             <div class="bg-white dark:bg-gray-800 rounded-lg shadow" x-data="{
@@ -128,19 +128,12 @@
                                     <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900 dark:text-gray-100">
                                         {{ optional($drivers->vehicle)->license_plate ?? 'Tidak Ada Kendaraan' }}
                                     </td>
-                                    <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
-                                        <x-warning-button x-on:click="initEdit({{ $drivers }})">
-                                            <x-heroicon-o-pencil-square class="w-4 h-4"/>
-                                        </x-warning-button>                                        
-
-                                        <x-danger-button onclick="confirmDelete({{ $drivers->id }})">  
-                                            <x-heroicon-o-trash class="w-4 h-4"/>
-                                        </x-danger-button>  
-
-                                        <form id="delete-form-{{ $drivers->id }}" action="{{ route('driver.delete', $drivers->id) }}" method="POST" style="display: none;">  
-                                            @csrf  
-                                            @method('DELETE')  
-                                        </form>  
+                                    <td class="px-6 py-4 whitespace-nowrap text-center text-sm font-medium">
+                                        <div class="flex justify-center items-center gap-2">
+                                            <x-link-button-info href="{{ route('quiz.page', [$drivers->id, $drivers->license_number]) }}">
+                                                Mulai Kuis
+                                            </x-link-button-info>                                             
+                                        </div>                                        
                                     </td>
                                 </tr>
                             @empty  
@@ -151,8 +144,6 @@
                         </tbody>
                     </table>
                 </div>
-
-                @include('formDriver.edit-editDriver-form')
 
                 <!-- Pagination -->
                 <div class="px-4 py-3 border-t border-gray-200 dark:border-gray-700 sm:px-6">
@@ -173,13 +164,4 @@
             </div>
         </div>
     </div>
-
-    {{-- Script Konfirmasi Hapus --}}
-    <script>  
-        function confirmDelete(driverId) {  
-            if (confirm('Apakah Anda yakin ingin menghapus transaksi ini?')) {  
-                document.getElementById('delete-form-' + driverId).submit();  
-            }  
-        }  
-    </script>
 </x-app-layout>

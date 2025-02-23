@@ -13,9 +13,12 @@ class GPSTrackerController extends Controller
 {
     public function index(Request $request): View
     {
+        $title = "GPS Tracking";
+
         $gpsList = GpsTracking::get();
 
         return view('gpsTracker', [
+            'title' => $title,
             'user' => $request->user(),
             'gpsList' => $gpsList,
         ]);
@@ -23,6 +26,8 @@ class GPSTrackerController extends Controller
 
     public function formAdd(Request $request): View
     {
+        $title = "Create GPS Tracking";
+
         $gpsList = GpsTracking::get();
         $vehicles = Vehicle::get();
 
@@ -34,6 +39,7 @@ class GPSTrackerController extends Controller
 
         return view('formGPSTracking.addForm-GPSTracker', [
             'user' => $request->user(),
+            'title' => $title,
             'gpsList' => $gpsList,
             'vehicles' => $vehicles,
             'latitude' => $location['lat'],
@@ -56,6 +62,8 @@ class GPSTrackerController extends Controller
 
     public function formEdit(Request $request, $id): View
     {
+        $title = "Edit GPS Tracking";
+
         $idGPS = GpsTracking::findOrFail($id);
         $gpsList = GpsTracking::where('id', $id)->first();
 
@@ -69,6 +77,7 @@ class GPSTrackerController extends Controller
 
         return view('formGPSTracking.editForm-GPSTracker', [
             'user' => $request->user(),
+            'title' => $title,
             'gpsList' => $gpsList,
             'vehicles' => $vehicles,
             'latitude' => $location['lat'],

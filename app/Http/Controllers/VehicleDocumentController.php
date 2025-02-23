@@ -13,11 +13,14 @@ class VehicleDocumentController extends Controller
 {
     public function index(Request $request): View
     {
+        $title = "Vehicle Document";
+
         $documentList = VehicleDocument::get();
         $vehiclesList = Vehicle::all();
 
         return view('vehicleDocument', [
             'user' => $request->user(),
+            'title' => $title,
             'documentList' => $documentList,
             'vehiclesList' => $vehiclesList,
         ]);

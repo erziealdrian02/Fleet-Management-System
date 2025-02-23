@@ -11,6 +11,8 @@ class DriverController extends Controller
 {
     public function index(Request $request): View
     {
+        $title = "Driver";
+
         $driverList = Driver::get();
         $vehicles = Vehicle::all();
 

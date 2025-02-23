@@ -6,6 +6,7 @@ use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\VehicleController;
 use App\Http\Controllers\DriverController;
 use App\Http\Controllers\GPSTrackerController;
+use App\Http\Controllers\QuestionController;
 use App\Http\Controllers\TripsController;
 use App\Http\Controllers\VehicleDocumentController;
 use Illuminate\Support\Facades\Route;
@@ -87,7 +88,13 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::delete('/document/delete/{id}', [VehicleDocumentController::class, 'delete'])  
         ->name('document.delete');
     
+    Route::get('/question', [QuestionController::class, 'index'])  
+        ->name('question');
 });
+
+Route::get('/quiz/{driver_id}/{license_number}', [QuestionController::class, 'page'])->name('quiz.page');
+Route::post('/quiz/save-answer', [QuestionController::class, 'saveAnswer'])->name('quiz.saveAnswer');
+Route::get('/quiz/finish/{driver_id}/{license_number}', [QuestionController::class, 'finishQuiz'])->name('quiz.finish');
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');

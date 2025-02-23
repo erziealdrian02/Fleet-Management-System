@@ -1,16 +1,16 @@
 <section class="space-y-6" x-data="{ open: false }">
     <x-info-button
         class="mt-4"
-        x-on:click.prevent="$dispatch('open-modal', 'create-vehicle-modal')"
-    >{{ __('New vehicle') }}</x-info-button>
+        x-on:click.prevent="$dispatch('open-modal', 'create-driver-modal')"
+    >{{ __('New Driver') }}</x-info-button>
 
-    <x-modal name="create-vehicle-modal" focusable maxWidth="4xl">
+    <x-modal name="create-driver-modal" focusable maxWidth="4xl">
         <form method="POST" action="{{ route('driver.store') }}" class="p-6">
             @csrf
 
             <div class="flex justify-between items-center mb-6">
                 <h2 class="text-lg font-medium text-gray-900 dark:text-gray-100">
-                    {{ __('Create vehicle') }}
+                    {{ __('Create Driver') }}
                 </h2>
                 <button type="button" x-on:click="$dispatch('close')" class="text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-200">
                     <svg class="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">

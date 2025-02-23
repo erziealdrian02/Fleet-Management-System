@@ -15,6 +15,8 @@ class DashboardController extends Controller
 {
     public function index(Request $request): View
     {
+        $title = "Dashboard";
+
         $getUser = User::get()->count();
         $getTransaksi = Vehicle::get()->count();
         $getProduct = Driver::get()->count();
@@ -23,6 +25,7 @@ class DashboardController extends Controller
         // });
 
         return view('dashboard', [
+            'title' => $title,
             'user' => $request->user(),
             'getUser' => $getUser,
             'getTransaksi' => $getTransaksi,

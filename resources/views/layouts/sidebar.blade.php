@@ -64,6 +64,17 @@
                     <span>Trips</span>
                 </x-link-sidebar>
             </x-dropdown-sidebar>
+
+            <x-dropdown-sidebar title="Improvement Driver">
+                {{-- <x-link-sidebar>
+                    <x-heroicon-o-map class="w-5 h-5 mr-2" />
+                    <span>Routes</span>
+                </x-link-sidebar> --}}
+                <x-link-sidebar href="{{ route('question') }}" :active="request()->routeIs('question')">
+                    <x-heroicon-c-question-mark-circle class="w-5 h-5 mr-2" />
+                    <span>Question</span>
+                </x-link-sidebar>
+            </x-dropdown-sidebar>
         
             <!-- Keamanan & Insiden -->
             {{-- <x-dropdown-sidebar title="Keamanan & Insiden">

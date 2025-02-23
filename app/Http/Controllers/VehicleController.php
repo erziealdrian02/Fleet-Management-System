@@ -10,9 +10,12 @@ class VehicleController extends Controller
 {
     public function index(Request $request): View
     {
+        $title = "Vehicle";
+
         $vehicleList = Vehicle::get();
 
         return view('vehicle', [
+            'title' => $title,
             'user' => $request->user(),
             'vehicleList' => $vehicleList,
         ]);

@@ -36,11 +36,14 @@ class TripsController extends Controller
 
     public function index(Request $request): View
     {
+        $title = "Trips";
+
         $companyList = Company::get();
         $tripsList = Trip::get();
 
         return view('trips', [
             'user' => $request->user(),
+            'title' => $title,
             'companyList' => $companyList,
             'tripsList' => $tripsList,
         ]);
@@ -53,6 +56,8 @@ class TripsController extends Controller
         $vehicleList = Vehicle::with('gps')->get();
         $companyList = Company::get();
 
+        $title = "Trips";
+
         // Ambil IP user yang sedang online
         $ip_user = $request->ip(); // atau bisa juga pakai request()->ip()
 
@@ -61,6 +66,7 @@ class TripsController extends Controller
 
         return view('formTrips.addForm-Trips', [
             'user' => $request->user(),
+            'title' => $title,
             'tripsList' => $tripsList,
             'vehicleList' => $vehicleList,
             'driverList' => $driverList,
@@ -104,6 +110,8 @@ class TripsController extends Controller
 
     public function formEdit(Request $request, $id): View
     {
+        $title = "Trips";
+
         $tripsList = Trip::findOrFail($id);
         $driverList = Driver::get();
         $vehicleList = Vehicle::with('gps')->get();
@@ -117,6 +125,7 @@ class TripsController extends Controller
 
         return view('formTrips.detailForm-Trips', [
             'user' => $request->user(),
+            'title' => $title,
             'tripsList' => $tripsList,
             'vehicleList' => $vehicleList,
             'driverList' => $driverList,
