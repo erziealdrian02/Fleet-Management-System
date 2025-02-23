@@ -8,7 +8,7 @@
         <!-- Sidebar Header -->
         <div class="flex items-center justify-center mt-8">
             <div class="flex items-center">
-                <span class="text-2xl font-semibold text-gray-800 dark:text-white">Dashboard</span>
+                <span class="text-xl font-semibold text-center text-gray-800 dark:text-white">COAL HAULING COMPANY</span>
             </div>
         </div>
 
