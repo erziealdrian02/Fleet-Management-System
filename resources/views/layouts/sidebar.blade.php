@@ -47,6 +47,10 @@
                     <x-heroicon-o-map-pin class="w-5 h-5 mr-2" />
                     <span>GPS Trackings</span>
                 </x-link-sidebar>
+                <x-link-sidebar href="{{ route('document') }}" :active="request()->routeIs('document')">
+                    <x-heroicon-c-document-duplicate class="w-5 h-5 mr-2" />
+                    <span>Legal Document</span>
+                </x-link-sidebar>
             </x-dropdown-sidebar>
         
             <!-- Manajemen Perjalanan -->

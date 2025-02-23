@@ -14,6 +14,7 @@ return new class extends Migration
         Schema::create('drivers', function (Blueprint $table) {
             $table->id();
             $table->string('name');
+            $table->string('personal_email');
             $table->string('license_number')->unique();
             $table->string('phone_number')->unique();
             $table->enum('status', ['Aktif', 'Libur', 'Diberhentikan'])->default('Aktif');

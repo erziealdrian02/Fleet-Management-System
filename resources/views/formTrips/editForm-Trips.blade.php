@@ -15,7 +15,6 @@
             <div class="bg-white dark:bg-gray-800 rounded-lg shadow p-6">
                 <form action="{{ route('trips.store') }}" method="POST">
                     @csrf
-            
                     <!-- Vehicle & Speed Selection -->
                     <div class="mb-6 flex space-x-4">
                         <div class="w-1/2">
@@ -25,7 +24,8 @@
                             <select name="driver_id" id="driver_id" class="w-full rounded-lg border-gray-300 dark:border-gray-600 dark:bg-gray-700 dark:text-gray-300 focus:border-orange-500 focus:ring-orange-500" required>
                                 <option value="">Select an option</option>
                                 @foreach($driverList as $driver)
-                                    <option value="{{ $driver->id }}" data-assigned-vehicle="{{ $driver->assigned_vehicle_id }}">
+                                    <option value="{{ $driver->id }}"
+                                        @if($tripsList->driver_id == $driver->id) selected @endif> 
                                         {{ $driver->name }}
                                     </option>
                                 @endforeach
@@ -45,7 +45,8 @@
                                     <option value="{{ $vehicle->id }}" 
                                         data-lat="{{ $vehicle->gps ? $vehicle->gps->latitude : '' }}" 
                                         data-lng="{{ $vehicle->gps ? $vehicle->gps->longitude : '' }}"
-                                        data-speed="{{ $vehicle->gps ? $vehicle->gps->speed : '' }}">
+                                        data-speed="{{ $vehicle->gps ? $vehicle->gps->speed : '' }}"
+                                        @if($tripsList->vehicle_id == $vehicle->id) selected @endif>
                                         {{ $vehicle->license_plate }} - {{ $vehicle->type }}
                                     </option>
                                 @endforeach
@@ -55,7 +56,7 @@
                             @enderror
                         </div>
                     </div>
-
+                    <h1>{{ $vehicle->gps->longitude }}</h1>
                     <div class="mb-6 flex space-x-4">
                         <div class="w-1/2">
                             <label for="start_location" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
@@ -64,7 +65,8 @@
                             <select name="start_location" id="start_location" class="w-full rounded-lg border-gray-300 dark:border-gray-600 dark:bg-gray-700 dark:text-gray-300 focus:border-orange-500 focus:ring-orange-500" required>
                                 <option value="">Select an option</option>
                                 @foreach($companyList as $company)
-                                    <option value="{{ $company->name }}" data-name="{{ $company->name }}" data-lat="{{ $company->latitude }}" data-lng="{{ $company->longitude }}">
+                                    <option value="{{ $company->name }}" data-name="{{ $company->name }}" data-lat="{{ $company->latitude }}" data-lng="{{ $company->longitude }}"
+                                        @if($tripsList->start_location == $company->name) selected @endif>
                                         {{ $company->name }}
                                     </option>
                                 @endforeach
@@ -81,7 +83,8 @@
                             <select name="end_location" id="end_location" class="w-full rounded-lg border-gray-300 dark:border-gray-600 dark:bg-gray-700 dark:text-gray-300 focus:border-orange-500 focus:ring-orange-500" required>
                                 <option value="">Select an option</option>
                                 @foreach($companyList as $company)
-                                    <option value="{{ $company->name }}" data-name="{{ $company->name }}" data-lat="{{ $company->latitude }}" data-lng="{{ $company->longitude }}">
+                                    <option value="{{ $company->name }}" data-name="{{ $company->name }}" data-lat="{{ $company->latitude }}" data-lng="{{ $company->longitude }}"
+                                        @if($tripsList->start_location == $company->name) selected @endif>
                                         {{ $company->name }}
                                     </option>
                                 @endforeach
@@ -97,7 +100,7 @@
                             <label for="start_time" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
                                 Start Time<span class="text-red-600">*</span>
                             </label>
-                            <input type="datetime-local" step="any" name="start_time" id="start_time" class="w-full rounded-lg border-gray-300 dark:border-gray-600 dark:bg-gray-700 dark:text-gray-300 focus:border-orange-500 focus:ring-orange-500" required value="{{ old('speed') }}">
+                            <input type="datetime-local" step="any" name="start_time" id="start_time" class="w-full rounded-lg border-gray-300 dark:border-gray-600 dark:bg-gray-700 dark:text-gray-300 focus:border-orange-500 focus:ring-orange-500" required value="{{ $tripsList->start_time }}">
                             @error('start_time')
                                 <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
                             @enderror
@@ -107,7 +110,7 @@
                             <label for="end_time" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
                                 End Time<span class="text-red-600">*</span>
                             </label>
-                            <input type="datetime-local" step="any" name="end_time" id="end_time" class="w-full rounded-lg border-gray-300 dark:border-gray-600 dark:bg-gray-700 dark:text-gray-300 focus:border-orange-500 focus:ring-orange-500" required value="{{ old('speed') }}">
+                            <input type="datetime-local" step="any" name="end_time" id="end_time" class="w-full rounded-lg border-gray-300 dark:border-gray-600 dark:bg-gray-700 dark:text-gray-300 focus:border-orange-500 focus:ring-orange-500" required value="{{ $tripsList->end_time }}">
                             @error('end_time')
                                 <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
                             @enderror
@@ -117,7 +120,7 @@
                             <label for="distance" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
                                 Distance (km)<span class="text-red-600">*</span>
                             </label>
-                            <input type="number" step="any" name="distance" id="distance" class="w-full rounded-lg border-gray-300 dark:border-gray-600 dark:bg-gray-700 dark:text-gray-300 focus:border-orange-500 focus:ring-orange-500" required readonly>
+                            <input type="number" step="any" name="distance" id="distance" class="w-full rounded-lg border-gray-300 dark:border-gray-600 dark:bg-gray-700 dark:text-gray-300 focus:border-orange-500 focus:ring-orange-500" required value="{{ $tripsList->distance }}" readonly>
                             @error('distance')
                                 <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
                             @enderror
@@ -162,10 +165,10 @@
                 const endSelect = document.querySelector("#end_location option:checked");
     
                 // Cek apakah ada vehicle yang dipilih
-                if (!vehicleSelect || !startSelect || !endSelect) return;
+                if (vehicleSelect || startSelect || endSelect) return;
     
-                const vehicleLat = vehicleSelect.dataset.lat;
-                const vehicleLng = vehicleSelect.dataset.lng;
+                const vehicleLat = {{ $vehicle->gps->latitude }};
+                const vehicleLng = {{ $vehicle->gps->longitude }};
                 const startName = startSelect.dataset.name;
                 const startLat = startSelect.dataset.lat;
                 const startLng = startSelect.dataset.lng;

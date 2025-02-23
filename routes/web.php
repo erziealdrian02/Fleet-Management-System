@@ -7,10 +7,11 @@ use App\Http\Controllers\VehicleController;
 use App\Http\Controllers\DriverController;
 use App\Http\Controllers\GPSTrackerController;
 use App\Http\Controllers\TripsController;
+use App\Http\Controllers\VehicleDocumentController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
-    return view('welcome');
+    return redirect('login');
 });
 
 Route::middleware(['auth', 'verified'])->group(function () {  
@@ -76,6 +77,16 @@ Route::middleware(['auth', 'verified'])->group(function () {
         ->name('trips.update');
     Route::delete('/trips/delete/{id}', [TripsController::class, 'delete'])  
         ->name('trips.delete');  
+
+    Route::get('/document', [VehicleDocumentController::class, 'index'])  
+        ->name('document'); 
+    Route::post('/document/store', [VehicleDocumentController::class, 'store'])  
+        ->name('document.store');
+    Route::put('/document/update/{id}', [VehicleDocumentController::class, 'update'])  
+        ->name('document.update');
+    Route::delete('/document/delete/{id}', [VehicleDocumentController::class, 'delete'])  
+        ->name('document.delete');
+    
 });
 
 Route::middleware('auth')->group(function () {

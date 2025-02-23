@@ -104,8 +104,10 @@ class TripsController extends Controller
 
     public function formEdit(Request $request, $id): View
     {
-        $idGPS = Company::findOrFail($id);
-        $companyList = Company::where('id', $id)->first();
+        $tripsList = Trip::findOrFail($id);
+        $driverList = Driver::get();
+        $vehicleList = Vehicle::with('gps')->get();
+        $companyList = Company::get();
 
         // Ambil IP user yang sedang online
         $ip_user = $request->ip(); // atau bisa juga pakai request()->ip()
@@ -113,8 +115,11 @@ class TripsController extends Controller
         // Ambil lokasi user dari Cache
         $location = Cache::get("user_location_{$ip_user}"); // Default Jakarta
 
-        return view('formCompany.editForm-Company', [
+        return view('formTrips.detailForm-Trips', [
             'user' => $request->user(),
+            'tripsList' => $tripsList,
+            'vehicleList' => $vehicleList,
+            'driverList' => $driverList,
             'companyList' => $companyList,
             'latitude' => $location['lat'],
             'longitude' => $location['lon'],

@@ -31,7 +31,7 @@
                         </header>
                     @endisset
     
-                    <main class="p-4">
+                    <main class="p-4 pb-28">
                         {{ $slot }}
                     </main>
                 </div>
