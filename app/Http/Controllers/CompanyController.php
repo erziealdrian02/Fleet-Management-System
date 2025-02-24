@@ -9,16 +9,20 @@ use Illuminate\Http\Request;
 
 class CompanyController extends Controller
 {
-    public function index(Request $request): View
+    public function index(Request $request)
     {
-        $title = "Company";
+        $search = $request->input('search'); // Ambil keyword pencarian
 
-        $companyList = Company::get();
+        $companyList = Company::when($search, function ($query) use ($search) {
+            return $query->where('name', 'LIKE', "%{$search}%")
+                        ->orWhere('alamat', 'LIKE', "%{$search}%")
+                        ->orWhere('type', 'LIKE', "%{$search}%");
+        })->paginate(10); // Tambahkan pagination
 
         return view('company', [
-            'user' => $request->user(),
-            'title' => $title,
+            'title' => 'Company List',
             'companyList' => $companyList,
+            'search' => $search
         ]);
     }
 

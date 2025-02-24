@@ -40,14 +40,16 @@
                     </div>  
                 @endif 
 
-                <!-- Search Bar -->
+                <!-- Search Bar --> 
                 <div class="p-4 border-b border-gray-200 dark:border-gray-700">
-                    <div class="flex items-center space-x-4">
+                    <form id="search-form" method="GET" action="{{ route('company') }}" class="flex items-center space-x-4">
                         <div class="flex-1 relative">
-                            <input type="text" placeholder="Search" class="w-full pl-10 pr-4 py-2 rounded-lg border border-gray-300 dark:border-gray-600 bg-gray-50 dark:bg-gray-700 text-gray-900 dark:text-gray-100 focus:ring-2 focus:ring-orange-500">
+                            <input type="text" name="search" id="search-input" value="{{ request('search') }}" placeholder="Search"
+                                class="w-full pl-10 pr-4 py-2 rounded-lg border border-gray-300 dark:border-gray-600 bg-gray-50 dark:bg-gray-700 text-gray-900 dark:text-gray-100 focus:ring-2 focus:ring-orange-500">
                             <div class="absolute left-3 top-2.5 text-gray-400">
                                 <svg class="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/>
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                        d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
                                 </svg>
                             </div>
                         </div>
@@ -56,8 +58,8 @@
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 4a1 1 0 011-1h16a1 1 0 011 1v2.586a1 1 0 01-.293.707l-6.414 6.414a1 1 0 00-.293.707V17l-4 4v-6.586a1 1 0 00-.293-.707L3.293 7.293A1 1 0 013 6.586V4z"/>
                             </svg>
                         </button>
-                    </div>
-                </div>
+                    </form>
+                </div>              
 
                 <!-- Table -->
                 <div class="overflow-x-auto">
@@ -200,7 +202,24 @@
                 </div>
             </div>
         </div>
-    </div>     
+    </div>    
+    
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            let searchInput = document.getElementById("search-input");
+            let searchForm = document.getElementById("search-form");
+    
+            if (searchInput) {
+                let timeout = null;
+                searchInput.addEventListener("keyup", function () {
+                    clearTimeout(timeout);
+                    timeout = setTimeout(() => {
+                        searchForm.submit(); // Kirim form otomatis setelah user berhenti mengetik
+                    }, 500); // Delay 500ms agar tidak terlalu sering mengirim request
+                });
+            }
+        });
+    </script>  
 
     {{-- Script Konfirmasi Hapus --}}
     <script>  
