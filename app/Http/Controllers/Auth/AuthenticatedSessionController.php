@@ -25,24 +25,17 @@ class AuthenticatedSessionController extends Controller
     /**
      * Handle an incoming authentication request.
      */
-    public function store(Request $request)
+    public function store(LoginRequest $request): RedirectResponse
     {
-        $request->validate([
-            'email' => ['required', 'string', 'email'],
-            'password' => ['required', 'string'],
-        ]);
+        // Autentikasi pengguna
+        $request->authenticate();
 
-        if (! Auth::attempt($request->only('email', 'password'), $request->boolean('remember'))) {
-            return back()->withErrors([
-                'email' => __('auth.failed'),
-            ]);
-        }
-
+        // Regenerasi session
         $request->session()->regenerate();
 
-        // Tambahkan logika pencatatan IP
-        $ip = $request->ip(); // Ambil IP user
-        Session::put('ip_address', $ip); // Simpan ke session
+        // Ambil IP user
+        $ip = $request->ip();
+        // Session::put('ip_address', $ip); // Simpan ke session
 
         // Cek apakah koordinat IP sudah ada di cache
         $cacheKey = "user_location_{$ip}";
