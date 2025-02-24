@@ -42,8 +42,8 @@ class GPSTrackerController extends Controller
             'title' => $title,
             'gpsList' => $gpsList,
             'vehicles' => $vehicles,
-            'latitude' => $location['lat'],
-            'longitude' => $location['lon'],
+            'latitude' => $location['lat'] ?? -6.2114,
+            'longitude' => $location['lon'] ?? 106.8446,
         ]);
     }
 
@@ -80,8 +80,8 @@ class GPSTrackerController extends Controller
             'title' => $title,
             'gpsList' => $gpsList,
             'vehicles' => $vehicles,
-            'latitude' => $location['lat'],
-            'longitude' => $location['lon'],
+            'latitude' => $location['lat'] ?? -6.2114,
+            'longitude' => $location['lon'] ?? 106.8446,
         ]);
     }
 

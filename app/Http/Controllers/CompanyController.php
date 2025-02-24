@@ -37,8 +37,8 @@ class CompanyController extends Controller
             'gpsList' => $title,
             'user' => $request->user(),
             'gpsList' => $gpsList,
-            'latitude' => $location['lat'],
-            'longitude' => $location['lon'],
+            'latitude' => $location['lat'] ?? -6.2114,
+            'longitude' => $location['lon'] ?? 106.8446,
         ]);
     }
 
@@ -73,8 +73,8 @@ class CompanyController extends Controller
             'user' => $request->user(),
             'title' => $title,
             'companyList' => $companyList,
-            'latitude' => $location['lat'],
-            'longitude' => $location['lon'],
+            'latitude' => $location['lat'] ?? -6.2114,
+            'longitude' => $location['lon'] ?? 106.8446,
         ]);
     }
 

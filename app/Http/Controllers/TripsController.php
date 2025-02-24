@@ -71,8 +71,8 @@ class TripsController extends Controller
             'vehicleList' => $vehicleList,
             'driverList' => $driverList,
             'companyList' => $companyList,
-            'latitude' => $location['lat'],
-            'longitude' => $location['lon'],
+            'latitude' => $location['lat'] ?? -6.2114,
+            'longitude' => $location['lon'] ?? 106.8446,
         ]);
     }
 
@@ -130,8 +130,8 @@ class TripsController extends Controller
             'vehicleList' => $vehicleList,
             'driverList' => $driverList,
             'companyList' => $companyList,
-            'latitude' => $location['lat'],
-            'longitude' => $location['lon'],
+            'latitude' => $location['lat'] ?? -6.2114,
+            'longitude' => $location['lon'] ?? 106.8446,
         ]);
     }
 
