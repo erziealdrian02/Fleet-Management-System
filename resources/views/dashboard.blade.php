@@ -20,24 +20,24 @@
                 <!-- Stat Card 2 -->
                 <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg">
                     <div class="p-6">
-                        <h3 class="text-lg font-semibold text-gray-700 dark:text-gray-300">Revenue</h3>
-                        {{-- <p class="text-3xl font-bold text-gray-900 dark:text-white">Rp .{{ number_format($getRevenue, 0, ',', '.') }}</p> --}}
+                        <h3 class="text-lg font-semibold text-gray-700 dark:text-gray-300">Total Mileage</h3>
+                        <p class="text-3xl font-bold text-gray-900 dark:text-white">{{ $getMiles }} Km</p>
                     </div>
                 </div>
 
                 <!-- Stat Card 3 -->
                 <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg">
                     <div class="p-6">
-                        <h3 class="text-lg font-semibold text-gray-700 dark:text-gray-300">Orders</h3>
-                        <p class="text-3xl font-bold text-gray-900 dark:text-white">{{ $getTransaksi }}</p>
+                        <h3 class="text-lg font-semibold text-gray-700 dark:text-gray-300">Total Trips</h3>
+                        <p class="text-3xl font-bold text-gray-900 dark:text-white">{{ $getTrip }}</p>
                     </div>
                 </div>
 
                 <!-- Stat Card 4 -->
                 <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg">
                     <div class="p-6">
-                        <h3 class="text-lg font-semibold text-gray-700 dark:text-gray-300">Product</h3>
-                        <p class="text-3xl font-bold text-gray-900 dark:text-white">{{ $getProduct }}</p>
+                        <h3 class="text-lg font-semibold text-gray-700 dark:text-gray-300">Total Vehicle</h3>
+                        <p class="text-3xl font-bold text-gray-900 dark:text-white">{{ $getVehicle }}</p>
                     </div>
                 </div>
             </div>
@@ -59,17 +59,16 @@
         // Chart initialization
         document.addEventListener('DOMContentLoaded', function() {
             const ctx = document.getElementById('myChart').getContext('2d');
-            if (!ctx) {
-                console.error("Canvas element not found!");
-                return;
-            }
+            const chartLabels = {!! json_encode($chartLabels) !!};  // Label tanggal (30 hari terakhir)
+            const chartData = {!! json_encode($chartData) !!};  // Data total distance per tanggal
+
             new Chart(ctx, {
                 type: 'line',
                 data: {
-                    labels: ['January', 'February', 'March', 'April', 'May', 'June'],
+                    labels: chartLabels,
                     datasets: [{
-                        label: 'Monthly Revenue',
-                        data: [12000, 19000, 15000, 25000, 22000, 30000],
+                        label: 'Total Distance per Day (Km) - Last 30 Days',
+                        data: chartData,
                         borderColor: 'rgb(59, 130, 246)',
                         backgroundColor: 'rgba(59, 130, 246, 0.1)',
                         tension: 0.4,
@@ -85,8 +84,18 @@
                         }
                     },
                     scales: {
+                        x: {
+                            title: {
+                                display: true,
+                                text: 'Date'
+                            }
+                        },
                         y: {
-                            beginAtZero: true
+                            beginAtZero: true,
+                            title: {
+                                display: true,
+                                text: 'Distance (Km)'
+                            }
                         }
                     }
                 }

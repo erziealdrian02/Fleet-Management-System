@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 // use App\Models\MasterDetailTransaksi;
 use App\Models\Driver;
+use App\Models\Trip;
 use App\Models\Vehicle;
 use App\Models\User;
 use Illuminate\Http\Request;
@@ -17,20 +18,32 @@ class DashboardController extends Controller
     {
         $title = "Dashboard";
 
-        $getUser = User::get()->count();
-        $getTransaksi = Vehicle::get()->count();
-        $getProduct = Driver::get()->count();
-        // $getRevenue = MasterDetailTransaksi::with('produk')->get()->sum(function ($detail) {
-        //     return $detail->quantity * $detail->produk->harga;
-        // });
+        $getUser = User::count();
+        $getVehicle = Vehicle::count();
+        $getTrip = Trip::count();
+
+        // Ambil rentang 30 hari terakhir
+        $startDate = now()->subDays(30)->toDateString();
+        $endDate = now()->toDateString();
+
+        $trips = Trip::whereBetween('created_at', [$startDate, $endDate])
+                    ->selectRaw('DATE(created_at) as date, SUM(distance) as total_distance')
+                    ->groupBy('date')
+                    ->orderBy('date', 'asc')
+                    ->get();
+
+        $labels = $trips->pluck('date'); // Label tanggal
+        $distances = $trips->pluck('total_distance'); // Data jarak
 
         return view('dashboard', [
             'title' => $title,
             'user' => $request->user(),
             'getUser' => $getUser,
-            'getTransaksi' => $getTransaksi,
-            'getProduct' => $getProduct,
-            // 'getRevenue' => $getRevenue,
+            'getVehicle' => $getVehicle,
+            'getTrip' => $getTrip,
+            'getMiles' => $trips->sum('total_distance'),
+            'chartLabels' => $labels,
+            'chartData' => $distances,
         ]);
     }
 }
