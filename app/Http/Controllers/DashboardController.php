@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers;
 
-// use App\Models\MasterDetailTransaksi;
 use App\Models\Driver;
 use App\Models\Trip;
 use App\Models\Vehicle;

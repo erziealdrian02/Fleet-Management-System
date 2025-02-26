@@ -14,7 +14,7 @@
 
         <!-- Navigation -->
         <nav class="mt-10">
-            <!-- Dashboard -->
+            <!-- Dashboard & Company -->
             <x-link-sidebar href="{{ route('dashboard') }}" :active="request()->routeIs('dashboard')">
                 <x-heroicon-o-chart-pie class="w-6 h-6"/>
                 <span class="mx-3">Dashboard</span>
@@ -24,17 +24,19 @@
                 <x-heroicon-s-building-office-2 class="w-6 h-6"/>
                 <span class="mx-3">Company List</span>
             </x-link-sidebar>
-        
-            <!-- Manajemen Kendaraan -->
-            <x-dropdown-sidebar title="Manajemen Kendaraan">
+
+            <!-- Vehicle Management -->
+            <x-dropdown-sidebar title="Vehicle Management">
                 <x-link-sidebar href="{{ route('vehicle') }}" :active="request()->routeIs('vehicle')">
                     <x-heroicon-o-truck class="w-5 h-5 mr-2"/>
-                    <span>Vehicle</span>
+                    <span class="mx-3">Vehicles</span>
                 </x-link-sidebar>
+                
                 <x-link-sidebar href="{{ route('driver') }}" :active="request()->routeIs('driver')">
-                    <x-heroicon-o-users class="w-5 h-5 mr-2" />
-                    <span>Drivers</span>
+                    <x-heroicon-o-users class="w-5 h-5 mr-2"/>
+                    <span class="mx-3">Drivers</span>
                 </x-link-sidebar>
+
                 {{-- <x-link-sidebar>
                     <x-heroicon-o-wrench class="w-5 h-5 mr-2" />
                     <span>Maintenances</span>
@@ -43,48 +45,57 @@
                     <x-heroicon-c-newspaper class="w-5 h-5 mr-2" />
                     <span>Fuel Usages</span>
                 </x-link-sidebar> --}}
+
                 <x-link-sidebar href="{{ route('tracking') }}" :active="request()->routeIs('tracking')">
-                    <x-heroicon-o-map-pin class="w-5 h-5 mr-2" />
-                    <span>GPS Trackings</span>
+                    <x-heroicon-o-map-pin class="w-5 h-5 mr-2"/>
+                    <span class="mx-3">GPS Tracking</span>
                 </x-link-sidebar>
+                
                 <x-link-sidebar href="{{ route('document') }}" :active="request()->routeIs('document')">
-                    <x-heroicon-c-document-duplicate class="w-5 h-5 mr-2" />
-                    <span>Legal Document</span>
-                </x-link-sidebar>
-            </x-dropdown-sidebar>
-        
-            <!-- Manajemen Perjalanan -->
-            <x-dropdown-sidebar title="Manajemen Perjalanan">
-                {{-- <x-link-sidebar>
-                    <x-heroicon-o-map class="w-5 h-5 mr-2" />
-                    <span>Routes</span>
-                </x-link-sidebar> --}}
-                <x-link-sidebar href="{{ route('trips') }}" :active="request()->routeIs('trips')">
-                    <x-heroicon-o-rectangle-group class="w-5 h-5 mr-2" />
-                    <span>Trips</span>
+                    <x-heroicon-c-document-duplicate class="w-5 h-5 mr-2"/>
+                    <span class="mx-3">Legal Documents</span>
                 </x-link-sidebar>
             </x-dropdown-sidebar>
 
-            <x-dropdown-sidebar title="Improvement Driver">
-                {{-- <x-link-sidebar>
-                    <x-heroicon-o-map class="w-5 h-5 mr-2" />
-                    <span>Routes</span>
-                </x-link-sidebar> --}}
-                <x-link-sidebar href="{{ route('question') }}" :active="request()->routeIs('question')">
-                    <x-heroicon-c-question-mark-circle class="w-5 h-5 mr-2" />
-                    <span>Question</span>
+            <!-- Spare Part Management -->
+            <x-dropdown-sidebar title="Spare Part Management">
+                <x-link-sidebar href="{{ route('spareparts') }}" :active="request()->routeIs('spareparts')">
+                    <x-heroicon-s-wrench class="w-6 h-6"/>
+                    <span class="mx-3">Stock Spare Parts</span>
+                </x-link-sidebar>
+                
+                <x-link-sidebar href="{{ route('requestPart') }}" :active="request()->routeIs('requestPart')">
+                    <x-heroicon-s-clipboard-document-list class="w-6 h-6"/>
+                    <span class="mx-3">Request Spare Parts</span>
                 </x-link-sidebar>
             </x-dropdown-sidebar>
-        
-            <!-- Keamanan & Insiden -->
-            {{-- <x-dropdown-sidebar title="Keamanan & Insiden">
-                <x-link-sidebar>
-                    <x-heroicon-o-exclamation-circle class="w-5 h-5 mr-2" />
-                    <span>Accident</span>
+
+            <!-- Trip Management -->
+            <x-dropdown-sidebar title="Trip Management">
+                <x-link-sidebar href="{{ route('trips') }}" :active="request()->routeIs('trips')">
+                    <x-heroicon-o-rectangle-group class="w-5 h-5 mr-2"/>
+                    <span class="mx-3">Trips</span>
                 </x-link-sidebar>
-                <x-link-sidebar>
-                    <x-heroicon-o-bell class="w-5 h-5 mr-2" />
-                    <span>Alert</span>
+            </x-dropdown-sidebar>
+
+            <!-- Driver Improvement -->
+            <x-dropdown-sidebar title="Driver Improvement"  :defaultOpen="false">
+                <x-link-sidebar href="{{ route('question') }}" :active="request()->routeIs('question')">
+                    <x-heroicon-c-question-mark-circle class="w-5 h-5 mr-2"/>
+                    <span class="mx-3">Training Questions</span>
+                </x-link-sidebar>
+            </x-dropdown-sidebar>
+
+            <!-- Security & Incidents -->
+            {{-- <x-dropdown-sidebar title="Security & Incidents">
+                <x-link-sidebar href="#">
+                    <x-heroicon-o-exclamation-circle class="w-5 h-5 mr-2"/>
+                    <span class="mx-3">Accidents</span>
+                </x-link-sidebar>
+                
+                <x-link-sidebar href="#">
+                    <x-heroicon-o-bell class="w-5 h-5 mr-2"/>
+                    <span class="mx-3">Alerts</span>
                 </x-link-sidebar>
             </x-dropdown-sidebar> --}}
         </nav>        

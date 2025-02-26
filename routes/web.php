@@ -7,6 +7,8 @@ use App\Http\Controllers\VehicleController;
 use App\Http\Controllers\DriverController;
 use App\Http\Controllers\GPSTrackerController;
 use App\Http\Controllers\QuestionController;
+use App\Http\Controllers\RequestPartController;
+use App\Http\Controllers\SparePartController;
 use App\Http\Controllers\TripsController;
 use App\Http\Controllers\VehicleDocumentController;
 use Illuminate\Support\Facades\Route;
@@ -53,6 +55,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::delete('/tracking/delete/{id}', [GPSTrackerController::class, 'delete'])  
         ->name('tracking.delete');  
 
+    // Company Route
     Route::get('/company', [CompanyController::class, 'index'])  
         ->name('company'); 
     Route::get('/company/form-add', [CompanyController::class, 'formAdd'])  
@@ -66,6 +69,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::delete('/company/delete/{id}', [CompanyController::class, 'delete'])  
         ->name('company.delete');  
 
+    // Trips Route
     Route::get('/trips', [TripsController::class, 'index'])  
         ->name('trips'); 
     Route::get('/trips/form-add', [TripsController::class, 'formAdd'])  
@@ -79,6 +83,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::delete('/trips/delete/{id}', [TripsController::class, 'delete'])  
         ->name('trips.delete');  
 
+    // Documents Route
     Route::get('/document', [VehicleDocumentController::class, 'index'])  
         ->name('document'); 
     Route::post('/document/store', [VehicleDocumentController::class, 'store'])  
@@ -88,8 +93,29 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::delete('/document/delete/{id}', [VehicleDocumentController::class, 'delete'])  
         ->name('document.delete');
     
+    // Question Route
     Route::get('/question', [QuestionController::class, 'index'])  
         ->name('question');
+
+    // Spareparts Controller
+    Route::get('/spareparts', [SparePartController::class, 'index'])  
+        ->name('spareparts'); 
+    Route::post('/spareparts/store', [SparePartController::class, 'store'])  
+        ->name('spareparts.store');
+    Route::put('/spareparts/update/{id}', [SparePartController::class, 'update'])  
+        ->name('spareparts.update');
+    Route::delete('/spareparts/delete/{id}', [SparePartController::class, 'delete'])  
+        ->name('spareparts.delete'); 
+
+    // Spareparts Controller
+    Route::get('/requestPart', [RequestPartController::class, 'index'])  
+        ->name('requestPart'); 
+    Route::post('/requestPart/store', [RequestPartController::class, 'store'])  
+        ->name('requestPart.store');
+    Route::put('/requestPart/update/{id}', [RequestPartController::class, 'update'])  
+        ->name('requestPart.update');
+    Route::delete('/requestPart/delete/{id}', [RequestPartController::class, 'delete'])  
+        ->name('requestPart.delete'); 
 });
 
 Route::get('/quiz/{driver_id}/{license_number}', [QuestionController::class, 'page'])->name('quiz.page');

@@ -12,7 +12,7 @@
         <!-- Header with Timer -->
         <div class="flex justify-end items-center text-white mb-4">
             <i data-lucide="clock" class="w-5 h-5 mr-2"></i>
-            <span>0 Jam 42 Menit 12 Detik</span>
+            {{-- <span>0 Jam 42 Menit 12 Detik</span> --}}
         </div>
 
         <!-- Main Content -->
@@ -38,10 +38,10 @@
             <div class="space-y-4">
                 @foreach (['a', 'b', 'c', 'd'] as $option)
                     <div class="flex items-center">
-                        <input type="radio" name="answer" id="answer{{ $option }}" value="{{ $option }}" 
+                        <input type="radio" name="answer" id="answer{{ $option }}" value="{{ $question['option_' . $option] }}" 
                             class="mr-3"
                             {{ isset($savedAnswers[$index]) && $savedAnswers[$index] == $option ? 'checked' : '' }}
-                            onchange="saveAnswer({{ $index }}, '{{ $option }}')">
+                            onchange="saveAnswer({{ $isidndex }}, '{{ $option }}')">
                         <label for="answer{{ $option }}" class="text-gray-700">{{ $question['option_' . $option] }}</label>
                     </div>
                 @endforeach
